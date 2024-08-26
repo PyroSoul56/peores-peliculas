@@ -1,32 +1,30 @@
 services:
   nestapp:
     container_name: nestapp
-    image: pyrosoul/nestapp
+    image: peores-peliculas-api
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
     environment:
-      - DB_TYPE=postgres
+      - DB_TYPE=${DB_TYPE}
       - PG_HOST=db
-      - PG_USER=postgres
-      - PG_PASSWORD=postgres
-      - PG_DB=postgres
-      - PG_PORT=5432
+      - PG_USER=${PG_USER}
+      - PG_PASS=${PG_PASS}
+      - PG_NAME=${PG_NAME}
+      - PG_PORT=${PG_PORT}
     depends_on:
       - db
   db:
-    container_name: db
+    container_name: postgres
     image: postgres
     ports:
-      - "5432:5432"
+      - "${PG_PORT}:${PG_PORT}"
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=postgres
+      - POSTGRES_USER=${PG_USER}
+      - POSTGRES_PASSWORD=${PG_PASS}
+      - POSTGRES_DB=${PG_NAME}
     volumes:
-      - pgdata:/var/lib/postgresql/data
-volumes:
-  pgdata: {}
+      - ./postgres:/var/lib/postgresql/data
 

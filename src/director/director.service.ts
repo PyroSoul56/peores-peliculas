@@ -10,7 +10,7 @@ import { Director } from './entities/director.entity';
 export class DirectorService {
   constructor(
     @InjectRepository(Director)
-    private directorRepository: Repository<Director>,
+    private readonly directorRepository: Repository<Director>,
   ) {}
 
   // create
@@ -20,7 +20,7 @@ export class DirectorService {
       await this.directorRepository.save(director);
       return director;
     } catch (error) {
-      throw new BadRequestException(error.detail);
+      throw new BadRequestException(error);
     }
   }
   
@@ -38,7 +38,7 @@ export class DirectorService {
   }
 
   // get one
-  async findOne(id_director: string) {
+  async findOne(id_director: number) {
     try {
       const director = await this.directorRepository.findOneBy({id_director: id_director});
       if (!director) {
@@ -51,7 +51,7 @@ export class DirectorService {
   }
 
   // update
-  async update(id_director: string, updateDirectorDto: UpdateDirectorDto) {
+  async update(id_director: number, updateDirectorDto: UpdateDirectorDto) {
     try{
       const director = await this.directorRepository.preload({
         id_director: id_director,
@@ -68,7 +68,7 @@ export class DirectorService {
   }
 
   // delete
-  async remove(id_director: string) {
+  async remove(id_director: number) {
     try{
       const director = await this.directorRepository.findOneBy({id_director: id_director});
       if (!director) {
@@ -82,9 +82,9 @@ export class DirectorService {
   }
 
   //get peliculas
-  async getPeliculas(id_director: string){
+  async getPeliculas(id_director: number){
     try{
-      const director = await this.directorRepository.findOneBy({id_director: id_director});
+      const director = await this.directorRepository.findOne({where: {id_director: id_director}, relations: ['peliculas']});
       if (!director) {
         throw new NotFoundException('No se encontró el director');
       }

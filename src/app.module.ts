@@ -5,6 +5,8 @@ import { PeliculaModule } from './pelicula/pelicula.module';
 import { DirectorModule } from './director/director.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Director } from './director/entities/director.entity';
+import { Pelicula } from './pelicula/entities/pelicula.entity';
 
 @Module({
   imports: [
@@ -16,7 +18,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: process.env.PG_USER || 'postgres',
       password: process.env.PG_PASSWORD || 'postgres',
       database: process.env.PG_DB || 'postgres',
-      entities: ['dist/**/*.entity{.ts,.js}'],
+      entities: [Director, Pelicula],
       autoLoadEntities: true,
       synchronize: true,
     }),

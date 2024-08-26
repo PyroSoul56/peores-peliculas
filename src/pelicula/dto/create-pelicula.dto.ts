@@ -1,27 +1,26 @@
-import { IsNumber, IsString, Length, MinLength } from "class-validator";
+import { IsNotEmpty, IsNumber, IsString, Length, MinLength } from "class-validator";
 
 export class CreatePeliculaDto {
 
     @IsString()
     @MinLength(1)
-    id_pelicula: string;
-
-    @IsString()
-    @MinLength(1)
     titulo: string;
 
+    @IsNotEmpty()
     @IsNumber()
-    @Length(4)
     lanzamiento: number;
 
+    @IsNotEmpty()
     @IsString()
     @MinLength(1)
     genero: string;
 
+    @IsNotEmpty()
     @IsString()
     @MinLength(1)
     descripcion: string;
 
+    @IsNotEmpty()
     @IsString()
-    id_director: string;
+    id_director: number;
 }

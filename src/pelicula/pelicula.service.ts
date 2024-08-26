@@ -46,7 +46,7 @@ export class PeliculaService {
   }
 
   //find one
-  async findOne(id_pelicula: string) {
+  async findOne(id_pelicula: number) {
     const pelicula = await this.peliculaRepository.findOneBy({id_pelicula: id_pelicula});
     if (!pelicula) {
       throw new NotFoundException('No se encontró la pelicula');
@@ -55,7 +55,7 @@ export class PeliculaService {
   }
 
   //update
-  async update(id_pelicula: string, updatePeliculaDto: UpdatePeliculaDto) {
+  async update(id_pelicula: number, updatePeliculaDto: UpdatePeliculaDto) {
     const pelicula = await this.peliculaRepository.preload({
       id_pelicula: id_pelicula,
       ...updatePeliculaDto,
@@ -68,21 +68,13 @@ export class PeliculaService {
   }
 
   //delete
-  async remove(id_pelicula: string) {
+  async remove(id_pelicula: number) {
     const pelicula = await this.peliculaRepository.findOneBy({id_pelicula: id_pelicula});
     if (!pelicula) {
       throw new NotFoundException('No se encontró la pelicula');
     }
     await this.peliculaRepository.remove(pelicula);
-  }
-
-  //get director
-  async getDirector(id_pelicula: string) {
-    const pelicula = await this.peliculaRepository.findOneBy({id_pelicula: id_pelicula});
-    if (!pelicula) {
-      throw new NotFoundException('No se encontró la pelicula');
-    }
-    return pelicula.director;
+    return pelicula;
   }
 
 }

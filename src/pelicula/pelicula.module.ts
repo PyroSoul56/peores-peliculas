@@ -10,5 +10,6 @@ import { DirectorModule } from 'src/director/director.module';
   imports: [TypeOrmModule.forFeature([Pelicula, Director]), DirectorModule],
   controllers: [PeliculaController],
   providers: [PeliculaService],
+  exports: []
 })
 export class PeliculaModule {}

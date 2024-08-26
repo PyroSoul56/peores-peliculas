@@ -3,19 +3,20 @@ import { Pelicula } from 'src/pelicula/entities/pelicula.entity';
 
 @Entity()
 export class Director {
-    @PrimaryGeneratedColumn()
-    id_director: string;
 
-    @Column('text', {nullable: false})
+    @PrimaryGeneratedColumn('increment')
+    id_director: number;
+
+    @Column({name: 'nombre', nullable: false})
     nombre: string;
 
-    @Column('text', {nullable: false})
+    @Column({name: 'nacimiento', nullable: false})
     fecha_nacimiento: Date;
 
-    @Column('text', {nullable: false})
+    @Column({name: 'nacionalidad', nullable: false})
     nacionalidad: string;
 
-    @Column()
+    @Column({name: 'biografia', nullable: false})
     biografia: string;
 
     @OneToMany (type => Pelicula, pelicula => pelicula.director)

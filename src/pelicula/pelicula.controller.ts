@@ -3,7 +3,7 @@ import { PeliculaService } from './pelicula.service';
 import { CreatePeliculaDto } from './dto/create-pelicula.dto';
 import { UpdatePeliculaDto } from './dto/update-pelicula.dto';
 
-@Controller('pelicula')
+@Controller('peliculas')
 export class PeliculaController {
   constructor(private readonly peliculaService: PeliculaService) {}
 
@@ -19,16 +19,16 @@ export class PeliculaController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.peliculaService.findOne(id);
+    return this.peliculaService.findOne(+id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updatePeliculaDto: UpdatePeliculaDto) {
-    return this.peliculaService.update(id, updatePeliculaDto);
+    return this.peliculaService.update(+id, updatePeliculaDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.peliculaService.remove(id);
+    return this.peliculaService.remove(+id);
   }
 }

@@ -3,8 +3,9 @@ import { Director } from 'src/director/entities/director.entity';
 
 @Entity()
 export class Pelicula {
-    @PrimaryGeneratedColumn()
-    id_pelicula: string;
+
+    @PrimaryGeneratedColumn('increment')
+    id_pelicula: number;
 
     @Column()
     titulo: string;
@@ -19,7 +20,7 @@ export class Pelicula {
     descripcion: string;
 
     @Column()
-    id_director: string;
+    id_director: number;
 
     @ManyToOne(type => Director, director => director.peliculas)
     director: Director;
